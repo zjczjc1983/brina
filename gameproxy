@@ -1,0 +1,18 @@
+#!/bin/sh
+
+gw=192.168.0.30
+dns=202.14.67.14
+
+case $1 in
+  on)
+    echo "on"
+    route add default gw $gw
+    mv /etc/resolv.conf{,.bak}
+    echo nameserver $dns > /etc/resolv.conf
+    ;;
+  off)
+    echo "off"
+    route del default gw $gw
+    mv /etc/resolv.conf{.bak,}
+    ;;
+esac
